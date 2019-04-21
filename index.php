@@ -60,6 +60,12 @@ if ( 'decode' == $task ) {
         .hidden {
             display: none;
         }
+        .btn-clipbord{
+            width: 100%;
+        }
+        .btn-clipbord img{
+            margin-top: 7px;
+        }
     </style>
 </head>
 <body>
@@ -80,7 +86,15 @@ if ( 'decode' == $task ) {
         <div class="column column-60 column-offset-20">
             <form method="POST" action="index.php<?php if('decode' == $task){ echo "?task=decode"; }?>">
                 <label for="key">Key</label>
-                <input type="text" name="key" id="key" <?php displayKey($key); ?> >
+                <div class="row">
+                    <div class="column column-80">
+                        <input type="text" name="key" id="key" <?php displayKey($key); ?> >
+                    </div>
+                    <div class="column column-20">
+                        <button class="button button-outline btn-clipbord" id="copy-to-clipbord" >Copy</button>
+                    </div>
+                </div>
+                
                 <label for="data">Data</label>
                 <textarea name="data" id="data"><?php if(isset($_POST['data'])){ echo $_POST['data']; } ?></textarea>
                 <label for="result">Result</label>
@@ -90,5 +104,17 @@ if ( 'decode' == $task ) {
         </div>
     </div>
 </div>
+
+<script>
+    function copyToClipbord() {
+        var copyText = document.getElementById("key");
+        copyText.select();
+        document.execCommand("copy");
+    }
+
+    document.getElementById("copy-to-clipbord").addEventListener("click", copyToClipbord);
+
+</script>
+
 </body>
 </html>
